@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  frontend:
+    image: jupyter-frontend:dev
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+      - jupyter
+
+  backend:
+    image: jupyter-backend:dev
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    ports:
+      - "5001:5000"
+    environment:
+      - PORT=5000
+      - JWT_SECRET=a-very-secure-secret-for-dev
+    depends_on:
+      - jupyter
+
+  jupyter:
+    image: jupyter-singleuser:dev
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.jupyter
+    ports:
+      - "9999:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/
