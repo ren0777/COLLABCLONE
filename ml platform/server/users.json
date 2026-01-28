@@ -1,0 +1,30 @@
+[
+  [
+    "admin",
+    {
+      "password": "$2b$10$UuVaFGfW20lMj5I9Jh10muK./ex.wkPPEMUiOzALCfSrRqN/uozZ6",
+      "role": "admin"
+    }
+  ],
+  [
+    "user1",
+    {
+      "password": "$2b$10$H31iF4xKERpeHsKPO.UMk.K6AEalBtsnrR.IO7z1/MG/rQ4M8ePqm",
+      "role": "user"
+    }
+  ],
+  [
+    "user2",
+    {
+      "password": "$2b$10$ddrwuD9zqZyHSJNk1IYg0uCOLcvBgJxkRA15OkHGVwwH6Y1Q80aoy",
+      "role": "user"
+    }
+  ],
+  [
+    "user 4",
+    {
+      "password": "$2b$10$RG3AsaVUBai81TYaKtIKGej47rO49uyJDFUxPPBz4SjAvfy6Zn7ee",
+      "role": "user"
+    }
+  ]
+]

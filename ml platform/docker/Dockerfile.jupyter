@@ -1,0 +1,21 @@
+FROM jupyter/scipy-notebook:latest
+WORKDIR /home/jupyter
+
+RUN pip install --no-cache-dir \
+    scikit-learn pandas numpy matplotlib seaborn flask
+
+# Declare volumes for Docker Compose
+VOLUME ["/home/jupyter/notebooks", "/home/jupyter/.local"]
+
+EXPOSE 8888
+
+CMD jupyter lab \
+    --ip=0.0.0.0 \
+    --port=8888 \
+    --NotebookApp.base_url=/jupyter \
+    --NotebookApp.allow_origin="*" \
+    --NotebookApp.disable_check_xsrf=True \
+    --NotebookApp.tornado_settings='{"headers":{"Content-Security-Policy":"frame-ancestors * 'self'"}}' \
+    --NotebookApp.token='' \
+    --NotebookApp.password='' \
+    --allow-root

@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  frontend:
+    image: jupyter-frontend:dev
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+      - jupyter
+    volumes:
+      - frontend_node_modules:/app/node_modules # Attach frontend node_modules volume
+
+  backend:
+    image: jupyter-backend:dev
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    ports:
+      - "5001:5000"
+    environment:
+      - PORT=5000
+      - JWT_SECRET=a-very-secure-secret-for-dev
+    depends_on:
+      - jupyter
+    volumes:
+      - backend_data:/app/data # Attach backend data volume
+      - ./server/users.json:/app/users.json # Persist users.json
+      - notebooks_data:/app/notebooks # Attach notebooks data volume
+
+  jupyter:
+    image: jupyter-singleuser:dev
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.jupyter
+    ports:
+      - "9998:8888"
+    volumes:
+      - notebooks_data:/home/jupyter/notebooks # Attach notebooks data volume
+      - jupyter_data:/home/jupyter/.local # Attach jupyter local data volume
+
+volumes:
+  notebooks_data:
+  jupyter_data:
+  backend_data:
+  frontend_node_modules:
